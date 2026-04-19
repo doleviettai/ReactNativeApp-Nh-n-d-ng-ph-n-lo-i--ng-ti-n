@@ -1,0 +1,203 @@
+
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+.root { padding: 14px 12px 28px; font-family: var(--font-sans); display: flex; flex-direction: column; gap: 14px; }
+.tabs { display: flex; gap: 6px; flex-wrap: wrap; }
+.tab { padding: 5px 12px; border-radius: 20px; border: 0.5px solid var(--color-border-secondary); background: var(--color-background-primary); color: var(--color-text-secondary); font-size: 11px; cursor: pointer; }
+.tab.active { background: #1a1a2e; color: #f0c040; border-color: #1a1a2e; }
+.panel { display: none; flex-direction: column; gap: 4px; }
+.panel.active { display: flex; }
+
+.tree-line { display: flex; align-items: flex-start; padding: 3px 4px; border-radius: 5px; cursor: default; transition: background 0.1s; gap: 0; }
+.tree-line:hover { background: var(--color-background-secondary); }
+.icon { font-size: 13px; margin-right: 5px; min-width: 18px; display: inline-block; margin-top: 1px; }
+.name { font-size: 12px; font-family: var(--font-mono); color: var(--color-text-primary); }
+.name.folder { color: #60a0ff; font-weight: 500; }
+.name.layout { color: #f0c040; }
+.name.screen { color: #4de8a0; }
+.name.comp { color: #c060ff; }
+.name.config { color: var(--color-text-secondary); }
+.name.service { color: #ff9060; }
+.badge { margin-left: 7px; padding: 1px 7px; border-radius: 8px; font-size: 10px; font-family: var(--font-sans); display: inline-block; white-space: nowrap; }
+.b-layout { background: #1a1a00; color: #f0c040; }
+.b-screen { background: #001a0d; color: #4de8a0; }
+.b-comp { background: #1a001a; color: #c060ff; }
+.b-nav { background: #1a0a00; color: #ff9060; }
+.b-config { background: var(--color-background-secondary); color: var(--color-text-secondary); }
+.b-url { background: #001220; color: #60c0ff; }
+
+.section-gap { height: 8px; }
+.section-label { font-size: 10px; color: var(--color-text-secondary); text-transform: uppercase; letter-spacing: 0.8px; padding: 4px 4px 2px; }
+
+.info-box { border-radius: 10px; padding: 11px 13px; font-size: 11px; line-height: 1.65; }
+.info-warn { background: #1a1200; border: 0.5px solid #3a3000; color: #aa9944; }
+.info-ok { background: #001a0d; border: 0.5px solid #003a1a; color: #44aa77; }
+.info-blue { background: #001220; border: 0.5px solid #003060; color: #4488aa; }
+.info-box b { font-weight: 500; }
+.info-box code { font-family: var(--font-mono); font-size: 11px; background: rgba(255,255,255,0.07); padding: 1px 4px; border-radius: 3px; }
+
+.route-table { border-radius: 10px; border: 0.5px solid var(--color-border-tertiary); overflow: hidden; }
+.rt-head { display: grid; grid-template-columns: 1fr 1fr; background: var(--color-background-secondary); padding: 7px 12px; gap: 8px; }
+.rt-head span { font-size: 10px; color: var(--color-text-secondary); text-transform: uppercase; letter-spacing: 0.6px; }
+.rt-row { display: grid; grid-template-columns: 1fr 1fr; padding: 7px 12px; gap: 8px; border-top: 0.5px solid var(--color-border-tertiary); background: var(--color-background-primary); }
+.rt-file { font-size: 11px; font-family: var(--font-mono); color: #4de8a0; }
+.rt-url { font-size: 11px; font-family: var(--font-mono); color: #60c0ff; }
+.rt-desc { font-size: 10px; color: var(--color-text-secondary); margin-top: 2px; }
+</style>
+
+<h2 class="sr-only">Cấu trúc thư mục đúng cho Expo Router project CurrencyAI</h2>
+
+<div class="root">
+  <div class="tabs">
+    <button class="tab active" onclick="sw('tree')">Cây thư mục</button>
+    <button class="tab" onclick="sw('routes')">URL Routes</button>
+    <button class="tab" onclick="sw('rule')">Quy tắc expo-router</button>
+  </div>
+
+  <!-- TREE -->
+  <div class="panel active" id="panel-tree">
+
+    <div class="section-label">📁 Root project</div>
+
+    <div class="tree-line"><span class="icon">📄</span><span class="name config">package.json</span></div>
+    <div class="tree-line"><span class="icon">📄</span><span class="name config">app.json</span><span class="badge b-config">expo config + permissions</span></div>
+    <div class="tree-line"><span class="icon">📄</span><span class="name config">tsconfig.json</span></div>
+    <div class="tree-line"><span class="icon">📄</span><span class="name config">babel.config.js</span><span class="badge b-config">thêm reanimated/plugin</span></div>
+
+    <div class="section-gap"></div>
+    <div class="section-label">📁 app/ — file-based routing (QUAN TRỌNG)</div>
+
+    <div class="tree-line"><span class="icon">📁</span><span class="name folder">app/</span></div>
+
+    <div class="tree-line" style="padding-left:20px"><span class="icon">📄</span><span class="name layout">_layout.tsx</span><span class="badge b-layout">root layout — Stack navigator</span></div>
+
+    <div class="tree-line" style="padding-left:20px; margin-top:4px"><span class="icon">📁</span><span class="name folder">(onboarding)/</span><span class="badge b-url">nhóm — không có trong URL</span></div>
+    <div class="tree-line" style="padding-left:40px"><span class="icon">📄</span><span class="name layout">_layout.tsx</span><span class="badge b-layout">swipe FlatList layout</span></div>
+    <div class="tree-line" style="padding-left:40px"><span class="icon">📄</span><span class="name screen">index.tsx</span><span class="badge b-screen">slide Welcome</span></div>
+    <div class="tree-line" style="padding-left:40px"><span class="icon">📄</span><span class="name screen">instruction.tsx</span><span class="badge b-screen">slide Hướng dẫn</span></div>
+    <div class="tree-line" style="padding-left:40px"><span class="icon">📄</span><span class="name screen">prepare.tsx</span><span class="badge b-screen">slide Chuẩn bị</span></div>
+
+    <div class="tree-line" style="padding-left:20px; margin-top:4px"><span class="icon">📄</span><span class="name screen">choose.tsx</span><span class="badge b-screen">chọn Camera / Upload</span></div>
+    <div class="tree-line" style="padding-left:20px"><span class="icon">📄</span><span class="name screen">camera.tsx</span><span class="badge b-screen">live camera</span></div>
+    <div class="tree-line" style="padding-left:20px"><span class="icon">📄</span><span class="name screen">upload.tsx</span><span class="badge b-screen">chọn ảnh thư viện</span></div>
+    <div class="tree-line" style="padding-left:20px"><span class="icon">📄</span><span class="name screen">result.tsx</span><span class="badge b-screen">kết quả AI</span></div>
+
+    <div class="section-gap"></div>
+    <div class="section-label">📁 components/ — dùng chung</div>
+
+    <div class="tree-line"><span class="icon">📁</span><span class="name folder">components/</span></div>
+    <div class="tree-line" style="padding-left:20px"><span class="icon">📄</span><span class="name comp">DotIndicator.tsx</span><span class="badge b-comp">swipe dots onboarding</span></div>
+    <div class="tree-line" style="padding-left:20px"><span class="icon">📄</span><span class="name comp">PrimaryButton.tsx</span></div>
+    <div class="tree-line" style="padding-left:20px"><span class="icon">📄</span><span class="name comp">CameraFrame.tsx</span><span class="badge b-comp">khung vàng chụp tiền</span></div>
+    <div class="tree-line" style="padding-left:20px"><span class="icon">📄</span><span class="name comp">ResultCard.tsx</span></div>
+    <div class="tree-line" style="padding-left:20px"><span class="icon">📄</span><span class="name comp">ConfidenceBar.tsx</span></div>
+    <div class="tree-line" style="padding-left:20px"><span class="icon">📄</span><span class="name comp">LoadingOverlay.tsx</span></div>
+
+    <div class="section-gap"></div>
+    <div class="section-label">📁 constants/ & services/</div>
+
+    <div class="tree-line"><span class="icon">📁</span><span class="name folder">constants/</span></div>
+    <div class="tree-line" style="padding-left:20px"><span class="icon">📄</span><span class="name service">classNames.ts</span><span class="badge b-nav">từ file JSON của bạn</span></div>
+    <div class="tree-line" style="padding-left:20px"><span class="icon">📄</span><span class="name service">colors.ts</span></div>
+    <div class="tree-line" style="padding-left:20px"><span class="icon">📄</span><span class="name service">currencies.ts</span><span class="badge b-nav">map tên nước, flag</span></div>
+
+    <div class="tree-line" style="margin-top:4px"><span class="icon">📁</span><span class="name folder">services/</span></div>
+    <div class="tree-line" style="padding-left:20px"><span class="icon">📄</span><span class="name service">api.ts</span><span class="badge b-nav">axios → ML server</span></div>
+    <div class="tree-line" style="padding-left:20px"><span class="icon">📄</span><span class="name service">imageHelper.ts</span></div>
+
+    <div class="tree-line" style="margin-top:4px"><span class="icon">📁</span><span class="name folder">types/</span></div>
+    <div class="tree-line" style="padding-left:20px"><span class="icon">📄</span><span class="name config">prediction.ts</span><span class="badge b-config">TypeScript interfaces</span></div>
+
+    <div class="tree-line" style="margin-top:4px"><span class="icon">📁</span><span class="name folder">assets/</span></div>
+    <div class="tree-line" style="padding-left:20px"><span class="icon">🖼️</span><span class="name config">logo.png, fonts/...</span></div>
+
+  </div>
+
+  <!-- ROUTES -->
+  <div class="panel" id="panel-routes">
+
+    <div class="info-box info-blue">Expo Router tự động tạo route từ tên file trong <code>app/</code>. Tên file = đường dẫn URL.</div>
+
+    <div class="route-table">
+      <div class="rt-head"><span>File</span><span>Route / màn hình</span></div>
+      <div class="rt-row">
+        <div><div class="rt-file">app/(onboarding)/index.tsx</div></div>
+        <div><div class="rt-url">/</div><div class="rt-desc">Màn hình đầu tiên — Welcome slide</div></div>
+      </div>
+      <div class="rt-row">
+        <div><div class="rt-file">app/(onboarding)/instruction.tsx</div></div>
+        <div><div class="rt-url">/instruction</div><div class="rt-desc">Slide hướng dẫn</div></div>
+      </div>
+      <div class="rt-row">
+        <div><div class="rt-file">app/(onboarding)/prepare.tsx</div></div>
+        <div><div class="rt-url">/prepare</div><div class="rt-desc">Slide chuẩn bị</div></div>
+      </div>
+      <div class="rt-row">
+        <div><div class="rt-file">app/choose.tsx</div></div>
+        <div><div class="rt-url">/choose</div><div class="rt-desc">Chọn Camera hoặc Upload</div></div>
+      </div>
+      <div class="rt-row">
+        <div><div class="rt-file">app/camera.tsx</div></div>
+        <div><div class="rt-url">/camera</div><div class="rt-desc">Live camera chụp tờ tiền</div></div>
+      </div>
+      <div class="rt-row">
+        <div><div class="rt-file">app/upload.tsx</div></div>
+        <div><div class="rt-url">/upload</div><div class="rt-desc">Tải ảnh từ thư viện</div></div>
+      </div>
+      <div class="rt-row">
+        <div><div class="rt-file">app/result.tsx</div></div>
+        <div><div class="rt-url">/result</div><div class="rt-desc">Kết quả phân tích AI</div></div>
+      </div>
+    </div>
+
+    <div class="info-box info-warn">
+      <b>Dấu ngoặc đơn <code>(onboarding)</code></b> = route group — nhóm các file lại nhưng <b>không thêm vào URL</b>. Nên <code>/instruction</code> thay vì <code>/onboarding/instruction</code>. Dùng để share 1 layout swipe chung cho 3 slide.
+    </div>
+
+  </div>
+
+  <!-- RULES -->
+  <div class="panel" id="panel-rule">
+
+    <div class="info-box info-ok">
+      <b>Điều hướng giữa các màn — dùng <code>router</code> từ expo-router:</b><br><br>
+      <code>import &#123; router &#125; from 'expo-router'</code><br><br>
+      <code>router.push('/choose')</code> &nbsp;→ push màn mới<br>
+      <code>router.replace('/choose')</code> → thay thế (không back được)<br>
+      <code>router.back()</code> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;→ quay lại
+    </div>
+
+    <div class="info-box info-blue">
+      <b>Swipe onboarding — dùng FlatList có sẵn:</b><br><br>
+      3 slide Welcome/Instruction/Prepare để trong <code>(onboarding)/_layout.tsx</code> với <code>FlatList horizontal pagingEnabled</code>. Khi swipe xong slide cuối thì gọi <code>router.replace('/choose')</code> để vào app chính.
+    </div>
+
+    <div class="info-box info-warn">
+      <b>Không có thư mục src/ — đặt thẳng ở root:</b><br><br>
+      <code>components/</code> &nbsp;→ root<br>
+      <code>constants/</code> &nbsp;&nbsp;→ root<br>
+      <code>services/</code> &nbsp;&nbsp;&nbsp;→ root<br>
+      <code>types/</code> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;→ root<br>
+      <code>assets/</code> &nbsp;&nbsp;&nbsp;&nbsp;→ root (đã có sẵn)<br><br>
+      Chỉ có <code>app/</code> là thư mục đặc biệt của expo-router. Phần còn lại đặt ở root bình thường.
+    </div>
+
+    <div class="info-box info-ok">
+      <b>Truyền dữ liệu sang màn result — dùng query params:</b><br><br>
+      <code>router.push(&#123; pathname: '/result', params: &#123; imageUri: uri &#125; &#125;)</code><br><br>
+      Nhận ở result.tsx:<br>
+      <code>import &#123; useLocalSearchParams &#125; from 'expo-router'</code><br>
+      <code>const &#123; imageUri &#125; = useLocalSearchParams()</code>
+    </div>
+
+  </div>
+</div>
+
+<script>
+function sw(id) {
+  document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  document.getElementById('panel-' + id).classList.add('active');
+  event.target.classList.add('active');
+}
+</script>
