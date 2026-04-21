@@ -1,5 +1,4 @@
 // app/_layout.tsx
-// Root layout - setup Stack navigator cho toàn bộ app
 import { useEffect } from 'react';
 import { Stack } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
@@ -28,15 +27,11 @@ export default function RootLayout() {
         <Stack.Screen name="choose" />
         <Stack.Screen name="camera" />
         <Stack.Screen name="upload" />
-        <Stack.Screen
-          name="result"
-          options={{ animation: 'slide_from_bottom' }}
-        />
+        <Stack.Screen name="result" options={{ animation: 'slide_from_bottom' }} />
+        <Stack.Screen name="converter" options={{ animation: 'slide_from_bottom' }} />
       </Stack>
     </GestureHandlerRootView>
   );
 }
 
-const styles = StyleSheet.create({
-  root: { flex: 1 },
-});
+const styles = StyleSheet.create({ root: { flex: 1 } });
