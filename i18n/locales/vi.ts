@@ -1,0 +1,147 @@
+// i18n/locales/vi.ts
+const vi = {
+  translation: {
+    // ── Welcome ──
+    welcome: {
+      tagline: 'NHẬN DIỆN TIỀN THÔNG MINH',
+      title: 'Nhận diện tiền tệ\nbằng trí tuệ nhân tạo',
+      desc: 'Phân loại 76 loại tờ tiền từ 7 quốc gia, phát hiện tiền giả chính xác và nhanh chóng',
+      btnStart: 'Bắt đầu ngay →',
+    },
+    // ── Instruction ──
+    instruction: {
+      screenTitle: 'Hướng dẫn',
+      illusTitle: 'Cách sử dụng',
+      illusDesc: 'Chỉ cần vài giây để nhận diện bất kỳ tờ tiền nào',
+      btnContinue: 'Tiếp tục →',
+      steps: [
+        'Đặt tờ tiền trên nền phẳng, đủ ánh sáng, không bị che khuất',
+        'Chụp ảnh trực tiếp bằng camera hoặc tải ảnh từ thư viện điện thoại',
+        'Chờ AI phân tích — thường dưới 3 giây',
+        'Xem kết quả: quốc gia, mệnh giá, độ tin cậy và trạng thái thật/giả',
+      ],
+    },
+    // ── Prepare ──
+    prepare: {
+      screenTitle: 'Chuẩn bị',
+      cardTitle: 'Lưu ý trước khi bắt đầu',
+      checksOk: [
+        'Tờ tiền trải phẳng, không bị gấp nếp',
+        'Đủ ánh sáng, không bị bóng che',
+        'Chụp toàn bộ mặt trước tờ tiền',
+        'Giữ tay ổn định, không bị rung khi chụp',
+      ],
+      checksNo: [
+        'Không chụp chéo góc hoặc bị ánh đèn lóa',
+        'Tránh để tờ tiền bị che khuất hoặc nhàu nát',
+      ],
+      infoBar: 'Model AI đang sẵn sàng · Hỗ trợ 7 loại tiền tệ · 76 mệnh giá · Phát hiện tiền giả VND',
+      btnStart: 'Bắt đầu sử dụng →',
+    },
+    // ── Choose ──
+    choose: {
+      title: 'Nhận diện tờ tiền',
+      desc: 'Chọn phương thức phù hợp với bạn',
+      camera: { title: 'Chụp ảnh trực tiếp', desc: 'Dùng camera điện thoại chụp tờ tiền ngay lúc này' },
+      upload: { title: 'Tải từ thư viện ảnh', desc: 'Chọn hình ảnh có sẵn trong bộ nhớ điện thoại' },
+      privacy: 'Ảnh được gửi lên server an toàn qua HTTPS và không được lưu lại',
+    },
+    // ── Camera ──
+    camera: {
+      title: 'Chụp tờ tiền',
+      hint: 'Đưa tờ tiền vào giữa khung\nCanh đủ ánh sáng để kết quả chính xác nhất',
+      flash: { auto: 'Tự động', on: 'Bật', off: 'Tắt' },
+      permissionTitle: 'Cần quyền truy cập camera',
+      permissionDesc: 'App cần dùng camera để chụp ảnh tờ tiền',
+      permissionBtn: 'Cấp quyền',
+    },
+    // ── Upload ──
+    upload: {
+      title: 'Tải ảnh từ thư viện',
+      zone: 'Nhấn để chọn ảnh',
+      zoneSub: 'JPG, PNG · Tối đa 10MB',
+      change: 'Đổi ảnh',
+      tip: 'Ảnh rõ nét, chụp thẳng góc, tờ tiền không bị gấp sẽ cho kết quả tốt nhất',
+      tipTitle: 'Gợi ý',
+      btnLibrary: 'Chọn ảnh từ thư viện',
+      btnRecognize: 'Bắt đầu nhận diện ✨',
+      confirmTitle: 'Xác nhận nhận diện',
+      confirmMsg: 'Bạn có muốn nhận diện tờ tiền này thông qua hình ảnh vừa chọn không?',
+      confirmOk: 'OK, nhận diện',
+      confirmCancel: 'Huỷ',
+      permissionTitle: 'Cần quyền truy cập',
+      permissionMsg: 'Vui lòng cấp quyền truy cập thư viện ảnh trong Cài đặt.',
+    },
+    // ── Result ──
+    result: {
+      title: 'Kết quả phân tích AI',
+      analyzing: 'Đang xử lý...',
+      done: 'Hoàn thành',
+      failed: 'Lỗi',
+      waitText: 'AI đang phân tích tờ tiền...',
+      errorTitle: 'Không thể phân tích',
+      retry: 'Thử lại',
+      btnBack: '← Quay lại',
+      btnConvert: 'Quy đổi',
+      btnNext: 'Nhận diện tiếp ✨',
+      imageLabel: 'Ảnh đang phân tích',
+      real: '✓ THẬT',
+      fake: '✗ GIẢ',
+      denomination: 'Mệnh giá',
+      country: 'Quốc gia',
+      currency: 'Loại tiền',
+      material: 'Chất liệu',
+      issuer: 'Phát hành',
+      confidence: 'Độ tin cậy',
+      status: 'Trạng thái',
+      realStatus: 'Tiền thật',
+      fakeStatus: 'Tiền giả',
+      topPredictions: 'Top dự đoán của model',
+      infoTitle: 'Thông tin tờ tiền',
+      verifyTitle: 'Kiểm tra xác thực',
+      idCode: 'Mã nhận dạng',
+      accuracy: 'Xác suất chính xác',
+      fakeProb: 'Xác suất giả',
+      comment: 'Nhận xét',
+      commentText: 'Tờ tiền có độ tin cậy rất cao. Các đặc điểm nhận dạng rõ nét, không phát hiện dấu hiệu giả mạo.',
+      warningTitle: '⚠️ Cảnh báo',
+      warningText: 'AI phát hiện đây có thể là tiền giả. Vui lòng kiểm tra lại tờ tiền bằng các phương pháp xác thực vật lý và báo cáo nếu cần thiết.',
+    },
+    // ── Converter ──
+    converter: {
+      title: 'Quy đổi tiền tệ',
+      from: 'Từ',
+      to: 'Sang',
+      denomination: 'Mệnh giá',
+      changeTo: '▾ Đổi',
+      btnConvert: 'Quy đổi',
+      resultLabel: 'Kết quả quy đổi',
+      rate: 'Tỷ giá',
+      source: 'Nguồn',
+      updated: 'Cập nhật',
+      disclaimer: '⚠️ Tỷ giá tham khảo, không phải tỷ giá giao dịch thực tế',
+      pickTitle: 'Chọn tiền tệ',
+      searchPlaceholder: 'Tìm theo tên, mã hoặc quốc gia...',
+      notFound: 'Không tìm thấy "{{query}}"',
+      errorNetwork: 'Lỗi kết nối. Kiểm tra mạng và thử lại.',
+    },
+    // ── Language ──
+    language: {
+      title: 'Ngôn ngữ',
+      screenTitle: 'Chọn ngôn ngữ',
+      desc: 'Chọn ngôn ngữ hiển thị cho toàn bộ ứng dụng',
+      saved: 'Đã lưu ngôn ngữ',
+    },
+    // ── Common ──
+    common: {
+      back: '← Quay lại',
+      close: '✕',
+      ok: 'OK',
+      cancel: 'Huỷ',
+      error: 'Lỗi',
+      loading: 'Đang tải...',
+      retry: 'Thử lại',
+    },
+  },
+};
+export default vi;

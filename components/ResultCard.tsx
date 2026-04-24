@@ -8,6 +8,7 @@ import { CURRENCY_INFO, getDenomination } from '@/constants/currencies';
 import { Colors } from '@/constants/colors';
 import CurrencyBadge from './Currencybadge';
 import ConfidenceBar from './ConfidenCard';
+import { useTranslation } from 'react-i18next';
 
 interface Props {
   result: PredictionResult;
@@ -20,6 +21,7 @@ export default function ResultCard({ result }: Props) {
   const isReal = authenticity === 'real';
   const currencyInfo = CURRENCY_INFO[currency_type];
   const denomination = getDenomination(class_name);
+  const { t } = useTranslation();
 
   return (
     <ScrollView
@@ -32,23 +34,23 @@ export default function ResultCard({ result }: Props) {
         <CurrencyBadge currencyCode={currency_type} size="lg" />
         <View style={[styles.authBadge, isReal ? styles.authReal : styles.authFake]}>
           <Text style={[styles.authText, { color: isReal ? Colors.green : Colors.red }]}>
-            {isReal ? '✓ THẬT' : '✗ GIẢ'}
+            {isReal ? t('result.real') : t('result.fake')}
           </Text>
         </View>
       </View>
 
       {/* Mệnh giá lớn */}
       <View style={styles.denominationBox}>
-        <Text style={styles.denominationLabel}>Mệnh giá</Text>
+        <Text style={styles.denominationLabel}>{t('result.denomination')}</Text>
         <Text style={styles.denominationValue}>{denomination}</Text>
         <Text style={styles.denominationSub}>{currencyInfo?.country}</Text>
       </View>
 
       {/* Độ tin cậy tổng */}
       <View style={styles.section}>
-        <Text style={styles.sectionTitle}>Độ tin cậy</Text>
+        <Text style={styles.sectionTitle}>{t('result.confidence')}</Text>
         <ConfidenceBar
-          label="Xác suất chính xác"
+          label={t('result.accuracy')}
           value={confidence}
           color={confidence > 0.85 ? Colors.green : confidence > 0.6 ? Colors.gold : Colors.red}
         />
@@ -56,14 +58,14 @@ export default function ResultCard({ result }: Props) {
 
       {/* Thông tin chi tiết */}
       <View style={styles.section}>
-        <Text style={styles.sectionTitle}>Thông tin tờ tiền</Text>
+        <Text style={styles.sectionTitle}>{t('result.infoTitle')}</Text>
         <View style={styles.infoGrid}>
-          <InfoRow label="Loại tiền" value={currency_type} />
-          <InfoRow label="Quốc gia" value={currencyInfo?.country ?? '—'} />
-          <InfoRow label="Mã nhận dạng" value={class_name} mono />
+          <InfoRow label={t('result.currency')} value={currency_type} />
+          <InfoRow label={t('result.country')} value={currencyInfo?.country ?? '—'} />
+          <InfoRow label={t('result.idCode')} value={class_name} mono />
           <InfoRow
-            label="Trạng thái"
-            value={isReal ? 'Tiền thật' : 'Tiền giả'}
+            label={t('result.status')}
+            value={isReal ? t('result.real') : t('result.fake')}
             valueColor={isReal ? Colors.green : Colors.red}
           />
         </View>

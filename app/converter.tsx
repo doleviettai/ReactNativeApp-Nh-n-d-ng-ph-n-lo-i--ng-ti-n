@@ -21,6 +21,7 @@ import { useLocalSearchParams, router } from 'expo-router';
 import { convertCurrency } from '@/services/currency';
 import { ALL_CURRENCIES, CurrencyOption } from '@/constants/allCurrencies';
 import { Colors } from '@/constants/colors';
+import { useTranslation } from 'react-i18next';
 
 // Format số đẹp theo locale
 function fmt(num: number, code: string): string {
@@ -48,6 +49,8 @@ export default function ConverterScreen() {
     denomination: string;
     countryName: string;
   }>();
+
+  const { t } = useTranslation();
 
   const fromCurrency  = params.fromCurrency  ?? 'VND';
   const rawAmount     = parseFloat(params.amount ?? '0');
@@ -128,15 +131,15 @@ export default function ConverterScreen() {
         {/* ── Header ── */}
         <View style={styles.header}>
           <TouchableOpacity onPress={() => router.back()} style={styles.backBtn}>
-            <Text style={styles.backText}>← Quay lại</Text>
+            <Text style={styles.backText}>← {t('result.btnBack')}</Text>
           </TouchableOpacity>
-          <Text style={styles.headerTitle}>Quy đổi tiền tệ</Text>
+          <Text style={styles.headerTitle}>{t('converter.title')}</Text>
           <View style={{ width: 80 }} />
         </View>
 
         {/* ── FROM card ── */}
         <View style={styles.fromCard}>
-          <Text style={styles.cardLabel}>Từ</Text>
+          <Text style={styles.cardLabel}>{t('converter.from')}</Text>
           <View style={styles.fromRow}>
             <Text style={styles.fromFlag}>{fromInfo?.flag ?? '💵'}</Text>
             <View style={styles.fromInfo}>
@@ -144,7 +147,7 @@ export default function ConverterScreen() {
               <Text style={styles.fromCountry}>{countryName || fromInfo?.country}</Text>
             </View>
             <View style={styles.fromAmountBox}>
-              <Text style={styles.fromAmountLabel}>Mệnh giá</Text>
+              <Text style={styles.fromAmountLabel}>{t('converter.denomination')}</Text>
               <Text style={styles.fromAmount} numberOfLines={1} adjustsFontSizeToFit>
                 {denomination}
               </Text>
@@ -163,7 +166,7 @@ export default function ConverterScreen() {
 
         {/* ── TO picker button ── */}
         <View style={styles.toCard}>
-          <Text style={styles.cardLabel}>Sang</Text>
+          <Text style={styles.cardLabel}>{t('converter.to')}</Text>
           <TouchableOpacity
             style={styles.pickerBtn}
             onPress={() => setPickerVisible(true)}
@@ -174,7 +177,7 @@ export default function ConverterScreen() {
               <Text style={styles.pickerCode}>{toCurrency.code}</Text>
               <Text style={styles.pickerCountry}>{toCurrency.country}</Text>
             </View>
-            <Text style={styles.pickerArrow}>▾ Đổi</Text>
+            <Text style={styles.pickerArrow}>▾ {t('changeTo')}</Text>
           </TouchableOpacity>
         </View>
 
@@ -189,7 +192,7 @@ export default function ConverterScreen() {
             <ActivityIndicator color="#1a0a00" />
           ) : (
             <Text style={styles.convertBtnText}>
-              Quy đổi {fromCurrency} → {toCurrency.code}
+              {t('converter.btnConvert')} {fromCurrency} → {toCurrency.code}
             </Text>
           )}
         </TouchableOpacity>
@@ -197,7 +200,7 @@ export default function ConverterScreen() {
         {/* ── Kết quả ── */}
         {result !== null && !loading && (
           <Animated.View style={[styles.resultCard, { opacity: fadeAnim }]}>
-            <Text style={styles.resultLabel}>Kết quả quy đổi</Text>
+            <Text style={styles.resultLabel}>{t('converter.resultLabel')}</Text>
 
             <View style={styles.resultMain}>
               <Text style={styles.resultFrom} numberOfLines={1} adjustsFontSizeToFit>
@@ -212,17 +215,17 @@ export default function ConverterScreen() {
             <View style={styles.resultDivider} />
 
             <View style={styles.rateRow}>
-              <Text style={styles.rateLabel}>Tỷ giá</Text>
+              <Text style={styles.rateLabel}>{t('converter.rate')}</Text>
               <Text style={styles.rateVal}>
                 1 {fromCurrency} = {fmtRate(rate!)} {toCurrency.code}
               </Text>
             </View>
             <View style={styles.rateRow}>
-              <Text style={styles.rateLabel}>Nguồn</Text>
+              <Text style={styles.rateLabel}>{t('converter.source')}</Text>
               <Text style={styles.rateSource}>ExchangeRate-API</Text>
             </View>
             <View style={styles.rateRow}>
-              <Text style={styles.rateLabel}>Cập nhật</Text>
+              <Text style={styles.rateLabel}>{t('converter.updated')}</Text>
               <Text style={styles.rateDate} numberOfLines={1}>
                 {updatedAt ? new Date(updatedAt).toLocaleDateString('vi-VN') : '—'}
               </Text>
@@ -230,7 +233,7 @@ export default function ConverterScreen() {
 
             <View style={styles.warningRow}>
               <Text style={styles.warningText}>
-                ⚠️ Tỷ giá tham khảo, không phải tỷ giá giao dịch thực tế
+                {t('converter.disclaimer')}
               </Text>
             </View>
           </Animated.View>
@@ -256,7 +259,7 @@ export default function ConverterScreen() {
 
             {/* Modal header */}
             <View style={styles.modalHeader}>
-              <Text style={styles.modalTitle}>Chọn tiền tệ</Text>
+              <Text style={styles.modalTitle}>{t('converter.pickTitle')}</Text>
               <TouchableOpacity
                 style={styles.modalClose}
                 onPress={() => { setPickerVisible(false); setSearch(''); }}
@@ -270,7 +273,7 @@ export default function ConverterScreen() {
               <Text style={styles.searchIcon}>🔍</Text>
               <TextInput
                 style={styles.searchInput}
-                placeholder="Tìm theo tên, mã hoặc quốc gia..."
+                placeholder={t('converter.searchPlaceholder')}
                 placeholderTextColor={Colors.textMuted}
                 value={search}
                 onChangeText={setSearch}
@@ -308,7 +311,7 @@ export default function ConverterScreen() {
               )}
               ListEmptyComponent={
                 <View style={styles.emptyBox}>
-                  <Text style={styles.emptyText}>Không tìm thấy `{search}`</Text>
+                  <Text style={styles.emptyText}>{t('converter.notFound', { query: search })}</Text>
                 </View>
               }
             />

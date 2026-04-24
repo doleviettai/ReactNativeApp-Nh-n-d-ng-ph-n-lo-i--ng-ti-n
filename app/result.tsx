@@ -16,6 +16,7 @@ import ResultCard from '@/components/ResultCard';
 import LoadingOverlay from '@/components/LoadingOverlay';
 import { getDenomination, CURRENCY_INFO } from '@/constants/currencies';
 import { Colors } from '@/constants/colors';
+import { useTranslation } from 'react-i18next';
 
 // Lấy số thực từ class_name để gửi sang converter
 // VD: "VN_100000" → 100000  |  "USD_100" → 100  |  "fake_VN_200000" → 200000
@@ -68,6 +69,7 @@ export default function ResultScreen() {
   const [loading, setLoading]   = useState(true);
   const [result, setResult]     = useState<PredictionResult | null>(null);
   const [error, setError]       = useState<string | null>(null);
+  const { t } = useTranslation();
 
   useEffect(() => {
     if (!imageUri) return;
@@ -116,9 +118,9 @@ export default function ResultScreen() {
         {/* Header */}
         <View style={styles.header}>
           <TouchableOpacity onPress={() => router.back()} style={styles.backBtn}>
-            <Text style={styles.backText}>← Quay lại</Text>
+            <Text style={styles.backText}>{t('result.btnBack')}</Text>
           </TouchableOpacity>
-          <Text style={styles.headerTitle}>Kết quả phân tích AI</Text>
+          <Text style={styles.headerTitle}>{t('result.title')}</Text>
           <View style={{ width: 80 }} />
         </View>
 
@@ -127,9 +129,9 @@ export default function ResultScreen() {
           <View style={styles.thumbRow}>
             <Image source={{ uri: imageUri as string }} style={styles.thumb} resizeMode="cover" />
             <View style={styles.thumbInfo}>
-              <Text style={styles.thumbLabel}>Ảnh đang phân tích</Text>
+              <Text style={styles.thumbLabel}>{t('result.imageLabel')}</Text>
               <Text style={styles.thumbStatus}>
-                {loading ? '⏳ Đang xử lý...' : result ? '✅ Hoàn thành' : '❌ Lỗi'}
+                {loading ? '⏳ ' + t('result.analyzing') : result ? '✅ ' + t('result.done') : '❌ ' + t('result.error')}
               </Text>
             </View>
           </View>
@@ -138,7 +140,7 @@ export default function ResultScreen() {
         {/* Waiting */}
         {loading && (
           <View style={styles.centerBox}>
-            <Text style={styles.waitText}>AI đang phân tích tờ tiền...</Text>
+            <Text style={styles.waitText}>{t('result.waitText')}</Text>
           </View>
         )}
 
@@ -146,10 +148,10 @@ export default function ResultScreen() {
         {error && !loading && (
           <View style={styles.errorBox}>
             <Text style={styles.errorIcon}>⚠️</Text>
-            <Text style={styles.errorTitle}>Không thể phân tích</Text>
+            <Text style={styles.errorTitle}>{t('result.errorTitle')}</Text>
             <Text style={styles.errorMsg}>{error}</Text>
             <TouchableOpacity style={styles.retryBtn} onPress={callPredict}>
-              <Text style={styles.retryText}>Thử lại</Text>
+              <Text style={styles.retryText}>{t('result.retry')}</Text>
             </TouchableOpacity>
           </View>
         )}
@@ -162,14 +164,14 @@ export default function ResultScreen() {
           <View style={styles.footer}>
             {/* Nút quay lại */}
             <TouchableOpacity style={styles.btnBack} onPress={() => router.back()}>
-              <Text style={styles.btnBackText}>← Quay lại</Text>
+              <Text style={styles.btnBackText}>{t('result.btnBack')}</Text>
             </TouchableOpacity>
 
             {/* Nút quy đổi — chỉ hiện khi có kết quả thành công */}
             {result && (
               <TouchableOpacity style={styles.btnConvert} onPress={handleConvert}>
                 <Text style={styles.btnConvertIcon}>💱</Text>
-                <Text style={styles.btnConvertText}>Quy đổi</Text>
+                <Text style={styles.btnConvertText}>{t('result.btnConvert')}</Text>
               </TouchableOpacity>
             )}
 
@@ -178,7 +180,7 @@ export default function ResultScreen() {
               style={styles.btnNext}
               onPress={() => router.replace('/choose')}
             >
-              <Text style={styles.btnNextText}>Nhận diện tiếp ✨</Text>
+              <Text style={styles.btnNextText}>{t('result.btnNext')}</Text>
             </TouchableOpacity>
           </View>
         )}

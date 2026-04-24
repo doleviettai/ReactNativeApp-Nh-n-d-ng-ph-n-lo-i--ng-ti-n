@@ -14,10 +14,12 @@ import * as ImagePicker from 'expo-image-picker';
 import { router } from 'expo-router';
 import PrimaryButton from '@/components/PrimaryButton';
 import { Colors } from '@/constants/colors';
+import { useTranslation } from 'react-i18next';
 
 export default function UploadScreen() {
   const [imageUri, setImageUri] = useState<string | null>(null);
   const [fileName, setFileName] = useState<string>('');
+  const { t } = useTranslation();
 
   const pickImage = async () => {
     const permission = await ImagePicker.requestMediaLibraryPermissionsAsync();
@@ -51,15 +53,15 @@ export default function UploadScreen() {
     if (!imageUri) return;
 
     Alert.alert(
-      'Xác nhận nhận diện',
-      'Bạn có muốn nhận diện tờ tiền này thông qua hình ảnh vừa chọn không?',
+      t('upload.confirmTitle'),
+      t('upload.confirmMessage'),
       [
         {
-          text: 'Huỷ',
+          text: t('upload.confirmCancel'),
           style: 'cancel',
         },
         {
-          text: 'OK, nhận diện',
+          text: t('upload.confirmOk'),
           onPress: () => {
             router.push({
               pathname: './result',
@@ -80,7 +82,7 @@ export default function UploadScreen() {
           <TouchableOpacity onPress={() => router.back()} style={styles.backBtn}>
             <Text style={styles.backText}>← Quay lại</Text>
           </TouchableOpacity>
-          <Text style={styles.headerTitle}>Tải ảnh từ thư viện</Text>
+          <Text style={styles.headerTitle}>{t('upload.title')}</Text>
           <View style={{ width: 80 }} />
         </View>
 
@@ -95,35 +97,35 @@ export default function UploadScreen() {
             <View style={styles.previewMeta}>
               <Text style={styles.previewName} numberOfLines={1}>{fileName}</Text>
               <TouchableOpacity onPress={pickImage}>
-                <Text style={styles.changeBtn}>Đổi ảnh</Text>
+                <Text style={styles.changeBtn}>{t('upload.change')}</Text>
               </TouchableOpacity>
             </View>
           </View>
         ) : (
           <TouchableOpacity style={styles.uploadZone} onPress={pickImage} activeOpacity={0.7}>
             <Text style={styles.uploadIcon}>🖼️</Text>
-            <Text style={styles.uploadText}>Nhấn để chọn ảnh</Text>
-            <Text style={styles.uploadSub}>JPG, PNG · Tối đa 10MB</Text>
+            <Text style={styles.uploadText}>{t('upload.zone')}</Text>
+            <Text style={styles.uploadSub}>{t('upload.zoneSub')}</Text>
           </TouchableOpacity>
         )}
 
         {/* Tip */}
         <View style={styles.tipBox}>
-          <Text style={styles.tipTitle}>💡 Gợi ý</Text>
+          <Text style={styles.tipTitle}>💡 {t('upload.tipTitle')}</Text>
           <Text style={styles.tipText}>
-            Ảnh rõ nét, chụp thẳng góc, tờ tiền không bị gấp sẽ cho kết quả tốt nhất
+            {t('upload.tip')}
           </Text>
         </View>
 
         {/* Buttons */}
         <View style={styles.btnGroup}>
           <TouchableOpacity style={styles.libraryBtn} onPress={pickImage}>
-            <Text style={styles.libraryBtnText}>🖼️  Chọn ảnh từ thư viện</Text>
+            <Text style={styles.libraryBtnText}>🖼️  {t('upload.btnLibrary')}</Text>
           </TouchableOpacity>
 
           {imageUri && (
             <PrimaryButton
-              title="Bắt đầu nhận diện ✨"
+              title={t('upload.btnRecognize') + " ✨"}
               onPress={handleRecognize}
             />
           )}

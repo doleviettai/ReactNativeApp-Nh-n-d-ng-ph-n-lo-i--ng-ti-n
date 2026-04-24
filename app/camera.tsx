@@ -18,6 +18,7 @@ import {
 import { router } from 'expo-router';
 import CameraFrame from '@/components/CameraFrame';
 import { Colors } from '@/constants/colors';
+import { useTranslation } from 'react-i18next';
 
 export default function CameraScreen() {
   const [permission, requestPermission] = useCameraPermissions();
@@ -27,6 +28,7 @@ export default function CameraScreen() {
   const [capturing, setCapturing] = useState(false);
   const [focusPoint, setFocusPoint] = useState<{ x: number; y: number } | null>(null);
   const cameraRef = useRef<CameraView>(null);
+  const { t } = useTranslation();
 
   useEffect(() => {
     if (permission && !permission.granted) {
@@ -41,12 +43,12 @@ export default function CameraScreen() {
       <SafeAreaView style={styles.container}>
         <View style={styles.permissionBox}>
           <Text style={styles.permissionIcon}>📷</Text>
-          <Text style={styles.permissionTitle}>Cần quyền truy cập camera</Text>
+          <Text style={styles.permissionTitle}>{t('camera.permissionTitle')}</Text>
           <Text style={styles.permissionDesc}>
-            App cần dùng camera để chụp ảnh tờ tiền
+            {t('camera.permissionDesc')}
           </Text>
           <TouchableOpacity style={styles.permissionBtn} onPress={requestPermission}>
-            <Text style={styles.permissionBtnText}>Cấp quyền</Text>
+            <Text style={styles.permissionBtnText}>{t('camera.permissionBtn')}</Text>
           </TouchableOpacity>
         </View>
       </SafeAreaView>
@@ -89,7 +91,7 @@ export default function CameraScreen() {
   };
 
   const flashIcon  = flash === 'on' ? '⚡' : flash === 'auto' ? '🔆' : '🔇';
-  const flashLabel = flash === 'on' ? 'Bật'  : flash === 'auto' ? 'Tự động' : 'Tắt';
+  const flashLabel = flash === 'on' ? t('camera.flash.on') : flash === 'auto' ? t('camera.flash.auto') : t('camera.flash.off');
 
   return (
     <View style={styles.container}>
@@ -117,7 +119,7 @@ export default function CameraScreen() {
       )}
 
       {/* ── Khung ngắm ── */}
-      <CameraFrame hint={'Đưa tờ tiền vào giữa khung\nCanh đủ ánh sáng để kết quả chính xác nhất'} />
+      <CameraFrame hint={t('camera.hint')} />
 
       {/* ── Top bar: đóng + tiêu đề + flash ── */}
       <SafeAreaView style={styles.topBar}>
@@ -125,7 +127,7 @@ export default function CameraScreen() {
           <Text style={styles.iconBtnText}>✕</Text>
         </TouchableOpacity>
 
-        <Text style={styles.topTitle}>Chụp tờ tiền</Text>
+        <Text style={styles.topTitle}>{t('camera.title')}</Text>
 
         <TouchableOpacity style={styles.flashBtn} onPress={cycleFlash}>
           <Text style={styles.iconBtnText}>{flashIcon}</Text>

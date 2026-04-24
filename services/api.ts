@@ -3,7 +3,7 @@ import axios, { AxiosError } from 'axios';
 import { PredictionResult } from '@/types/prediction';
 
 // ⚠️ Đổi thành địa chỉ IP server ML của bạn
-const BASE_URL = 'http://192.168.2.105:8000';
+const BASE_URL = 'http://192.168.1.16:8000';
 
 // ===== CUSTOM ERROR =====
 export class PredictionError extends Error {
